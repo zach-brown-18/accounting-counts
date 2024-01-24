@@ -1,15 +1,17 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'shared/header', title: 'Client Details' %>
 
-<%= render @client %>
+<div class="container">
+  <h1 class="page-title">Client Details</h1>
 
-<div>
+  <dl class="row mt-4">
+    <dt class="col-sm-3">Name: <%= @client.full_name %></p>
+    <dt class="col-sm-3">Internal ID: <%= @client.id %></p>
+  </dl>
 
-  <p><strong>First Name:</strong> <%= @client.first_name %></p>
-  <p><strong>Last Name:</strong> <%= @client.last_name %></p>
-  <p><strong>Child's Name:</strong> <%= @client.child_name %></p>
-
-  <%= link_to "Edit this client", edit_client_path(@client) %> |
-  <%= link_to "Back to clients", clients_path %>
-
-  <%= button_to "Destroy this client", @client, method: :delete %>
+  <dl class="row mt-4">
+    <%= link_to 'Edit', edit_client_path(@client), class: 'btn btn-warning btn-sm' %>
+    <%= link_to 'Back', clients_path, class: 'btn btn-secondary btn-sm' %>
+  </dd>
 </div>
+
+<%= render 'shared/footer' %>

@@ -1,0 +1,23 @@
+<%= render 'shared/header', title: 'Payment Details' %>
+
+
+<div class="container">
+  <h1 class="page-title">Payment Details</h1>
+
+  <dl class="row mt-4">
+    <dt class="col-sm-3">Scholarship ID: <%= @payment.scholarship_id %></dt>
+
+    <dt class="col-sm-3">Client ID: <%= @payment.client_id %></dt>
+
+    <dt class="col-sm-3">Amount Due: <%= @payment.amount_due %></dt>
+
+    <dt class="col-sm-3">Amount Paid: <%= @payment.amount_paid %></dt>
+  </dl>
+  
+  <dl class="row mt-4">
+    <%= link_to 'Edit', edit_payment_path(@payment), class: 'btn btn-warning btn-sm' %>
+    <%= link_to 'Back', payments_path, class: 'btn btn-secondary btn-sm' %>
+  </dd>
+</div>
+
+<%= render 'shared/footer' %>

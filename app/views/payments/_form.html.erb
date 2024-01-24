@@ -1,0 +1,92 @@
+<%= form_with(model: payment) do |form| %>
+  <% if payment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+
+      <ul>
+        <% payment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="field">
+    <%= form.label :scholarship_id %>
+    <%= form.collection_select :scholarship_id, Scholarship.all, :id, :display_name, { prompt: 'Select Scholarship' }, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_id %>
+    <%= form.collection_select :client_id, Client.all, :id, :first_name, { prompt: 'Select Client' }, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_number %>
+    <%= form.number_field :payment_number, value: 1, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :week_end_date %>
+    <%= form.date_field :week_end_date, required: false %>
+  </div>
+
+  <div class="field">
+    <%= form.label :month_name %>
+    <%= form.select :month_name, (1..12).map { |m| [Date::MONTHNAMES[m], m] }, prompt: 'Select Month', required: false %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount_due %>
+    <%= form.number_field :amount_due, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount_paid %>
+    <%= form.number_field :amount_paid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_paid %>
+    <%= form.date_field :date_paid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reference %>
+    <%= form.text_field :referenc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_tuition %>
+    <%= form.number_field :cycle_tuition %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_discount %>
+    <%= form.number_field :cycle_discount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_state_voucher %>
+    <%= form.number_field :cycle_state_voucher %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_parent_copay %>
+    <%= form.number_field :cycle_parent_copay %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

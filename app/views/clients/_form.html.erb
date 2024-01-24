@@ -1,10 +1,10 @@
-<%= form_with(model: client, local: true) do |form| %>
-  <% if client.errors.any? %>
+<%= form_with(model: @client, local: true) do |form| %>
+  <% if @client.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(client.errors.count, "error") %> prohibited this client from being saved:</h2>
+      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
 
       <ul>
-        <% client.errors.full_messages.each do |message| %>
+        <% @client.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -22,33 +22,13 @@
   </div>
 
   <div class="field">
-    <%= form.label :date_accepted %>
-    <%= form.date_field :date_accepted %>
-  </div>
-
-  <div class="field">
-    <%= form.label :is_active %>
-    <%= form.check_box :is_active %>
-  </div>
-
-  <div class="field">
-    <%= form.label :income %>
-    <%= form.text_field :income %>
-  </div>
-
-  <div class="field">
-    <%= form.label :amount_approved %>
-    <%= form.text_field :amount_approved %>
-  </div>
-
-  <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
+    <%= form.label :first_enrolled %>
+    <%= form.date_field :first_enrolled %>
   </div>
 
   <div class="field">
     <%= form.label :email %>
-    <%= form.email_field :email %>
+    <%= form.text_field :email %>
   </div>
 
   <div class="field">
@@ -57,8 +37,68 @@
   </div>
 
   <div class="field">
-    <%= form.label :child_name %>
-    <%= form.text_field :child_name %>
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :state %>
+    <%= form.select :state, ['MD', 'VA', 'DC'], prompt: 'Select State' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :zip %>
+    <%= form.text_field :zip %>
+  </div>
+
+  <div class="field">
+    <%= form.label :census_tract %>
+    <%= form.text_field :census_tract %>
+  </div>
+
+  <div class="field">
+    <%= form.label :qoz %>
+    <%= form.select :qoz, ['Y', 'N'], prompt: 'Select QOZ' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_of_birth %>
+    <%= form.date_field :date_of_birth %>
+  </div>
+
+  <div class="field">
+    <%= form.label :marital_status %>
+    <%= form.select :marital_status, ['Married', 'Divorced', 'Single', 'Separated', 'Widowed', 'Other'], prompt: 'Select Marital Status' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :monthly_salary %>
+    <%= form.text_field :monthly_salary %>
+  </div>
+
+  <div class="field">
+    <%= form.label :referring_partner %>
+    <%= form.text_field :referring_partner %>
+  </div>
+
+  <div class="field">
+    <%= form.label :county_of_residence %>
+    <%= form.text_field :county_of_residence %>
+  </div>
+
+  <div class="field">
+    <%= form.label :county_work %>
+    <%= form.text_field :county_work %>
+  </div>
+
+  <div class="field">
+    <%= form.label :employer %>
+    <%= form.text_field :employer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :job_title %>
+    <%= form.text_field :job_title %>
   </div>
 
   <div class="actions">

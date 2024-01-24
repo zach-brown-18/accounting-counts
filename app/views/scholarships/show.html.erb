@@ -1,0 +1,17 @@
+<%= render 'shared/header', title: 'Scholarship Details' %>
+
+<div class="container">
+  <h1 class="page-title">Scholarship Details</h1>
+
+  <dl class="row mt-4">
+    <dt class="col-sm-3">Year: <%= @scholarship.year %></p>
+    <dt class="col-sm-3">Child Name: <%= @scholarship.child_full_name %></p>
+  </dl>
+
+  <dl class="row mt-4">
+    <%= link_to 'Edit', edit_client_path(@scholarship), class: 'btn btn-warning btn-sm' %>
+    <%= link_to 'Back', scholarships_path, class: 'btn btn-secondary btn-sm' %>
+  </dd>
+</div>
+
+<%= render 'shared/footer' %>

@@ -1,10 +1,17 @@
-<p style="color: green"><%= notice %></p>
+<%= render 'shared/header', title: 'Provider Details' %>
 
-<%= render @provider %>
+<div class="container">
+  <h1 class="page-title">Provider Details</h1>
 
-<div>
-  <%= link_to "Edit this provider", edit_provider_path(@provider) %> |
-  <%= link_to "Back to providers", providers_path %>
+  <dl class="row mt-4">
+    <dt class="col-sm-3">Provider Name: <%= @provider.name %></p>
+    <dt class="col-sm-3">Internal ID: <%= @provider.id %></p>
+  </dl>
 
-  <%= button_to "Destroy this provider", @provider, method: :delete %>
+  <dl class="row mt-4">
+    <%= link_to 'Edit', edit_provider_path(@provider), class: 'btn btn-warning btn-sm' %>
+    <%= link_to 'Back', providers_path, class: 'btn btn-secondary btn-sm' %>
+  </dd>
 </div>
+
+<%= render 'shared/footer' %>
