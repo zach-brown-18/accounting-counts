@@ -1,0 +1,36 @@
+<%= render 'shared/header', title: 'Scholarships' %>
+
+<div class="container">
+  <h1 class="page-title">Scholarships</h1>
+
+  <%= link_to 'New Scholarship', new_scholarship_path, class: 'btn btn-primary btn-sm' %>
+
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Client</th>
+        <th>Child Name</th>
+        <th>Billing Cycle</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @scholarships.each do |scholarship| %>
+        <tr>
+          <td><%= scholarship.year %></td>
+          <td><%= scholarship.client.full_name %></td>
+          <td><%= "#{scholarship.child_first_name} #{scholarship.child_last_name}" %></td>
+          <td><%= scholarship.billing_cycle %></td>
+          <td>
+            <%= link_to 'Show', scholarship, class: 'btn btn-secondary btn-sm' %>
+            <%= link_to 'Edit', edit_scholarship_path(scholarship), class: 'btn btn-warning btn-sm' %>
+            <%= link_to 'Destroy', scholarship, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= render 'shared/footer' %>

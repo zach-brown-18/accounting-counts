@@ -1,0 +1,94 @@
+<!-- app/views/scholarships/_form.html.erb -->
+
+<%= form_with(model: scholarship, local: true) do |form| %>
+  <% if scholarship.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(scholarship.errors.count, 'error') %> prohibited this scholarship from being saved:</h2>
+
+      <ul>
+        <% scholarship.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.number_field :year, value: Time.current.year, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_id %>
+    <%= form.collection_select :client_id, Client.all, :id, :first_name, { prompt: 'Select Client' }, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :child_number %>
+    <%= form.number_field :child_number, value: 1, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :child_first_name %>
+    <%= form.text_field :child_first_name, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :child_last_name %>
+    <%= form.text_field :child_last_name, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :child_ethnicity %>
+    <%= form.text_field :child_ethnicity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :child_birth_date %>
+    <%= form.date_field :child_birth_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :provider_id %>
+    <%= form.collection_select :provider_id, Provider.all, :id, :name, { prompt: 'Select Provider' }, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :billing_cycle %>
+    <%= form.select :billing_cycle, ['Weekly', 'Monthly'], { prompt: 'Select Billing Cycle' }, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_tuition %>
+    <%= form.number_field :cycle_tuition %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_discount %>
+    <%= form.number_field :cycle_discount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_state_voucher %>
+    <%= form.number_field :cycle_state_voucher %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cycle_parent_copay %>
+    <%= form.number_field :cycle_parent_copay %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

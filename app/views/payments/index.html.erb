@@ -1,0 +1,37 @@
+<%= render 'shared/header', title: 'Payments' %>
+
+<div class="container">
+  <h1 class="page-title">Payments</h1>
+
+  <%= link_to 'New Payment', new_payment_path, class: 'btn btn-primary btn-sm' %>
+
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Scholarship ID</th>
+        <th>Client ID</th>
+        <th>Amount Due</th>
+        <th>Amount Paid</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @payments.each do |payment| %>
+        <tr>
+          <td><%= payment.scholarship_id %></td>
+          <td><%= payment.client_id %></td>
+          <td><%= payment.amount_due %></td>
+          <td><%= payment.amount_paid %></td>
+          <td>
+            <%= link_to 'Show', payment, class: 'btn btn-secondary btn-sm' %>
+            <%= link_to 'Edit', edit_payment_path(payment), class: 'btn btn-warning btn-sm' %>
+            <%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<%= render 'shared/footer' %>
