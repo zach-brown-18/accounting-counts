@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_24_033426) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_26_071819) do
   create_table "clients", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_24_033426) do
     t.date "week_end_date"
     t.string "month_name"
     t.decimal "amount_due"
-    t.decimal "amount_paid"
+    t.decimal "amount_paid", default: "0.0"
     t.date "date_paid"
     t.string "reference"
     t.index ["client_id"], name: "index_payments_on_client_id"
