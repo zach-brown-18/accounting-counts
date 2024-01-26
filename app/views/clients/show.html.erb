@@ -6,12 +6,84 @@
   <dl class="row mt-4">
     <dt class="col-sm-3">Name: <%= @client.full_name %></p>
     <dt class="col-sm-3">Internal ID: <%= @client.id %></p>
-  </dl>
 
-  <dl class="row mt-4">
+    <%= link_to 'Create Scholarship', new_scholarship_path, class: 'btn btn-warning btn-sm' %>
     <%= link_to 'Edit', edit_client_path(@client), class: 'btn btn-warning btn-sm' %>
     <%= link_to 'Back', clients_path, class: 'btn btn-secondary btn-sm' %>
-  </dd>
+
+    <% if @client.scholarships.any? %>
+      <dt class="col-sm-3"><h2>Payment Schedule</h2></dt>
+    <% end %>
+
+    <dd class="col-sm-9">
+      <% @client.scholarships.each do |scholarship| %>
+        <dt class="col-sm-3"><h3><%= scholarship.display_name %> </h3></dt>
+        <dt class="col-sm-3"><h4>
+          Provider: <%= link_to scholarship.provider.name, provider_path(scholarship.provider), class: 'nav-link' %>
+        </h4></dt>
+
+        <table class="table table-bordered mt-3">
+          <thead>
+            <tr>
+              <% if scholarship.billing_cycle == "Monthly" %>
+                <th>Month</th>
+              <% else %>
+                <th>Week End</th>
+              <% end %>
+              <th>Total Tuition</th>
+              <th>Voucher</th>
+              <th>Discount</th>
+              <th>Family Co-Pay</th>
+              <th>CCC Pay</th>
+              <th>Paid</th>
+              <th>Credit Used</th>
+              <th>Payment Date</th>
+              <th>Reference</th>
+              <th>Remaining Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% scholarship.payments.each do |payment| %>
+              <tr>
+                <% if scholarship.billing_cycle == "Monthly" %>
+                  <td><%= link_to payment.month_name, edit_payment_path(payment), class: 'nav-link' %></td>
+                <% else %>
+                  <td><%= link_to payment.week_end_date, edit_payment_path(payment), class: 'nav-link' %></td>
+                <% end %>
+                <td><%= number_to_currency(scholarship.cycle_tuition) %></td>
+                <td><%= number_to_currency(scholarship.cycle_state_voucher) %></td>
+                <td><%= number_to_currency(scholarship.cycle_discount) %></td>
+                <td><%= number_to_currency(scholarship.cycle_parent_copay) %></td>
+                <td><%= number_to_currency(scholarship.cycle_ccc_pay) %></td>
+                <td><%= number_to_currency(payment.amount_paid) %></td>
+                <td><%= number_to_currency(0) %></td>
+                <td><%= payment.date_paid.try(:strftime, '%Y-%m-%d') %></td>
+                <td><%= payment.reference %></td>
+                <td><%= number_to_currency(payment.remaining_balance scholarship.cycle_ccc_pay) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td><strong><%= number_to_currency(scholarship.cycle_tuition * scholarship.n_payments) %></strong></td>
+              <td><strong><%= number_to_currency(scholarship.cycle_state_voucher * scholarship.n_payments) %></strong></td>
+              <td><strong><%= number_to_currency(scholarship.cycle_discount * scholarship.n_payments) %></strong></td>
+              <td><strong><%= number_to_currency(scholarship.cycle_parent_copay * scholarship.n_payments) %></strong></td>
+              <td><strong><%= number_to_currency(scholarship.cycle_ccc_pay * scholarship.n_payments) %></strong></td>
+              <td><strong><%= number_to_currency(scholarship.payments.sum(&:amount_paid)) %></strong></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong><%= number_to_currency(scholarship.remaining_balance) %></strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      <% end %>
+    </dd>
+
+    <!-- Add more attributes as needed... -->
+  </dl>
 </div>
 
 <%= render 'shared/footer' %>

@@ -1,6 +1,7 @@
 class Scholarship < ApplicationRecord
   belongs_to :client
   belongs_to :provider
+  has_many :payments
 
   after_save :create_payments
 
@@ -13,7 +14,31 @@ class Scholarship < ApplicationRecord
   end
 
   def cycle_ccc_pay
-    cycle_tuition - cycle_discount - cycle_state_voucher - cycle_parent_copay
+    return cycle_tuition - cycle_discount - cycle_state_voucher - cycle_parent_copay \
+    unless cycle_tuition.nil? or cycle_discount.nil? or cycle_state_voucher.nil? or cycle_parent_copay.nil?
+    0
+  end
+
+  def duration
+    end_date - start_date
+  end
+
+  def n_payments
+    payments.count
+  end
+
+  def remaining_balance
+    Rails.cache.fetch("#{cache_key}/remaining_balance", expires_in: 1.day) do
+      balance = 0
+      payments.each do |payment|
+        balance += payment.remaining_balance(cycle_ccc_pay)
+      end
+      balance
+    end
+  end
+
+  after_touch do
+    Rails.cache.delete("#{cache_key}/remaining_balance")
   end
 
   private
@@ -59,7 +84,7 @@ class Scholarship < ApplicationRecord
     Payment.create!(
       scholarship_id: id,
       client_id: client_id,
-      week_end_date: date.end_of_month,
+      week_end_date: nil,
       month_name: date.strftime('%B'),
       amount_due: cycle_ccc_pay,
       amount_paid: 0,
