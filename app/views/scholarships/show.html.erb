@@ -4,13 +4,24 @@
   <h1 class="page-title">Scholarship Details</h1>
 
   <dl class="row mt-4">
-    <dt class="col-sm-3">Year: <%= @scholarship.year %></p>
-    <dt class="col-sm-3">Child Name: <%= @scholarship.child_full_name %></p>
+    <b><dt class="col-sm-3">Year:</b> <%= @scholarship.year %></p>
+    <b><dt class="col-sm-3">Client:</b> <%= link_to @scholarship.client.full_name, client_path(@scholarship.client) %></p>
+    <b><dt class="col-sm-3">Child Name:</b> <%= @scholarship.child_full_name %></p>
+    <b><dt class="col-sm-3">Child Birth Date:</b> <%= @scholarship.child_birth_date %></p>
+    <b><dt class="col-sm-3">Provider:</b> <%= link_to @scholarship.provider.name, provider_path(@scholarship.provider) %></p>
+    <b><dt class="col-sm-3">Billing Cylce:</b> <%= @scholarship.billing_cycle %></p>
+    <b><dt class="col-sm-3">Cycle Tuition:</b> <%= @scholarship.cycle_tuition %></p>
+    <b><dt class="col-sm-3">Discount:</b> <%= @scholarship.cycle_discount %></p>
+    <b><dt class="col-sm-3">State Voucher:</b> <%= @scholarship.cycle_state_voucher %></p>
+    <b><dt class="col-sm-3">Parent Copay:</b> <%= @scholarship.cycle_parent_copay %></p>
+    <b><dt class="col-sm-3">CCC Pay:</b> <%= @scholarship.cycle_ccc_pay %></p>
+    <b><dt class="col-sm-3">Duration:</b> <%= @scholarship.duration_in_weeks %> weeks</p>
   </dl>
 
   <dl class="row mt-4">
     <%= link_to 'Edit', edit_client_path(@scholarship), class: 'btn btn-warning btn-sm' %>
-    <%= link_to 'Back', scholarships_path, class: 'btn btn-secondary btn-sm' %>
+    <%= link_to 'Payments', scholarships_path, class: 'btn btn-secondary btn-sm' %>
+    <%= link_to 'Jump to Client', client_path(@scholarship.client), class: 'btn btn-secondary' %>
   </dd>
 </div>
 

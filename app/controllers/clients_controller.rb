@@ -36,6 +36,18 @@ class ClientsController < ApplicationController
       @client.destroy
       redirect_to clients_path, notice: 'Client was successfully destroyed.'
     end
+
+    def search
+      @client = Client.find(params[:search_id])
+      if @client
+        redirect_to client_path(@client)
+      else
+        p 'Client not found'
+        p params[:search_id]
+        flash[:alert] = 'Client not found.'
+        redirect_to clients_path
+      end
+    end
   
     private
   
@@ -44,7 +56,7 @@ class ClientsController < ApplicationController
     end
   
     def client_params
-      params.require(:client).permit(:first_name, :last_name, :first_enrolled, :street, :city, :state, :zip, :census_tract, :qoz, :date_of_birth, :marital_status, :monthly_salary, :referring_partner, :county_work, :county_residence, :employer, :email, :phone_number, :employer, :job_title)
+      params.require(:client).permit(:first_name, :last_name, :first_enrolled, :street, :city, :state, :zip, :census_tract, :qoz, :date_of_birth, :marital_status, :monthly_salary, :referring_partner, :county_work, :county_residence, :employer, :email, :phone_number, :employer, :job_title, :notes)
     end
   end
   

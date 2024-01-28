@@ -19,8 +19,8 @@ class Scholarship < ApplicationRecord
     0
   end
 
-  def duration
-    end_date - start_date
+  def duration_in_weeks
+    (end_date.jd - start_date.jd) / 7
   end
 
   def n_payments

@@ -5,18 +5,31 @@
   <h1 class="page-title">Payment Details</h1>
 
   <dl class="row mt-4">
-    <dt class="col-sm-3">Scholarship ID: <%= @payment.scholarship_id %></dt>
+    <b><dt class="col-sm-3">Scholarship:</b> <%= link_to @payment.scholarship.display_name, scholarship_path(@payment.scholarship) %></p>
+    <b><dt class="col-sm-3">Client:</b> <%= link_to @payment.scholarship.client.full_name, client_path(@payment.scholarship.client) %></p>
+    
+    <% if @payment.scholarship.billing_cycle == "Weekly" %>
+      <b><dt class="col-sm-3">Week End Date:</b> <%= @payment.week_end_date %></p>
+    <% else %>
+      <b><dt class="col-sm-3">Month:</b> <%= @payment.month_name %></p>
+    <% end %>
 
-    <dt class="col-sm-3">Client ID: <%= @payment.client_id %></dt>
+    <b><dt class="col-sm-3">Amount Due:</b> <%= number_to_currency(@payment.amount_due) %></p>
+    <b><dt class="col-sm-3">Amount Paid:</b> <%= number_to_currency(@payment.amount_paid) %></p>
 
-    <dt class="col-sm-3">Amount Due: <%= @payment.amount_due %></dt>
+    <% if !@payment.date_paid.nil? %>
+      <b><dt class="col-sm-3">Date Paid:</b> <%= @payment.date_paid %></p>
+    <% end %>
 
-    <dt class="col-sm-3">Amount Paid: <%= @payment.amount_paid %></dt>
+    <% if !@payment.reference.nil? %>
+      <b><dt class="col-sm-3">Reference:</b> <%= @payment.reference %></p>
+    <% end %>
+
   </dl>
   
   <dl class="row mt-4">
     <%= link_to 'Edit', edit_payment_path(@payment), class: 'btn btn-warning btn-sm' %>
-    <%= link_to 'Back', payments_path, class: 'btn btn-secondary btn-sm' %>
+    <%= link_to 'Payments', payments_path, class: 'btn btn-secondary btn-sm' %>
   </dd>
 </div>
 

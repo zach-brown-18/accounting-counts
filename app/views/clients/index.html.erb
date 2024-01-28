@@ -3,6 +3,13 @@
 <div class="container">
   <h1 class="page-title">Clients</h1>
 
+  <%= form_tag(search_clients_path, method: :get, class: 'mb-3') do %>
+    <div class="input-group">
+      <%= number_field_tag :search_id, params[:search_id], class: 'form-control', placeholder: 'Enter client ID' %>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  <% end %>
+
   <%= link_to 'New Client', new_client_path, class: 'btn btn-primary btn-sm' %>
 
   <table class="table table-striped mt-4">
