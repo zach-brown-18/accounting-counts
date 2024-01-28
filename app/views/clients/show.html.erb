@@ -42,7 +42,7 @@
 
     <dd class="col-sm-9">
       <% @client.scholarships.each do |scholarship| %>
-        <dt class="col-sm-3"><h3><%= scholarship.display_name %> </h3></dt>
+        <dt class="col-sm-3"><h3><%= link_to scholarship.display_name, scholarship_path(scholarship), class: 'nav-link' %> </h3></dt>
         <dt class="col-sm-3"><h4>
           Provider: <%= link_to scholarship.provider.name, provider_path(scholarship.provider), class: 'nav-link' %>
         </h4></dt>
