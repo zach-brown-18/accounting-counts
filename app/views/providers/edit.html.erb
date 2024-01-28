@@ -1,10 +1,15 @@
-<h1>Editing provider</h1>
+<%= render 'shared/header', title: 'Editing provider' %>
 
-<%= render "form", provider: @provider %>
+<div class="container">
+  <h1 class="page-title">Editing Provider</h1>
 
-<br>
+  <%= render "form", provider: @provider %>
 
-<div>
-  <%= link_to "Show this provider", @provider %> |
-  <%= link_to "Back to providers", providers_path %>
+  <br>
+
+  <div>
+    <%= link_to "Cancel", @provider, class: 'btn btn-secondary' %>
+  </div>
 </div>
+
+<%= render 'shared/footer' %>

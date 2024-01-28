@@ -8,8 +8,8 @@
   <table class="table table-striped mt-4">
     <thead>
       <tr>
-        <th>Scholarship ID</th>
-        <th>Client ID</th>
+        <th>Scholarship</th>
+        <th>Client</th>
         <th>Amount Due</th>
         <th>Amount Paid</th>
         <th>Actions</th>
@@ -18,10 +18,10 @@
     <tbody>
       <% @payments.each do |payment| %>
         <tr>
-          <td><%= payment.scholarship_id %></td>
-          <td><%= payment.client_id %></td>
-          <td><%= payment.amount_due %></td>
-          <td><%= payment.amount_paid %></td>
+          <td><%= payment.scholarship.display_name %></td>
+          <td><%= Client.find(payment.client_id).full_name %></td>
+          <td><%= number_to_currency(payment.amount_due) %></td>
+          <td><%= number_to_currency(payment.amount_paid) %></td>
           <td>
             <%= link_to 'Show', payment, class: 'btn btn-secondary btn-sm' %>
             <%= link_to 'Edit', edit_payment_path(payment), class: 'btn btn-warning btn-sm' %>

@@ -1,15 +1,40 @@
 <%= render 'shared/header', title: 'Client Details' %>
 
 <div class="container">
-  <h1 class="page-title">Client Details</h1>
+  <h1 class="page-title"><%= @client.full_name %></h1>
 
   <dl class="row mt-4">
-    <dt class="col-sm-3">Name: <%= @client.full_name %></p>
-    <dt class="col-sm-3">Internal ID: <%= @client.id %></p>
+    <b><dt class="col-sm-3">Internal ID:</b> <%= @client.id %></p>
+    
+    <br>
 
-    <%= link_to 'Create Scholarship', new_scholarship_path, class: 'btn btn-warning btn-sm' %>
+    <% if !@client.notes.nil? %>
+      <dt class="col-sm-3">Notes: <%= @client.notes %></p>
+      <br>
+    <% end %>
+
+    <b><dt class="col-sm-3">Email:</b> <%= @client.email %></p>
+    <b><dt class="col-sm-3">Phone:</b> <%= @client.phone_number %></p>
+    <b><dt class="col-sm-3">Address:</b> <%= @client.address_full %></p>
+    <b><dt class="col-sm-3">Date of Birth:</b> <%= @client.date_of_birth %></p>
+    <b><dt class="col-sm-3">First Enrolled:</b> <%= @client.first_enrolled %></p>
+    <b><dt class="col-sm-3">Census Tract:</b> <%= @client.census_tract %></p>
+    <b><dt class="col-sm-3">QOZ:</b> <%= @client.qoz %></p>
+    <b><dt class="col-sm-3">Marital Status:</b> <%= @client.marital_status %></p>
+    <b><dt class="col-sm-3">Monthly Salary:</b> <%= number_to_currency(@client.monthly_salary) %></p>
+
+    <% if !@client.referring_partner.nil? %>
+      <b><dt class="col-sm-3">Referring Partner:</b> <%= @client.referring_partner %></p>
+    <% end %>
+
+    <b><dt class="col-sm-3">County of Residence:</b> <%= @client.county_residence %></p>
+    <b><dt class="col-sm-3">Works in County:</b> <%= @client.county_work %></p>
+    <b><dt class="col-sm-3">Employer:</b> <%= @client.employer %></p>
+    <b><dt class="col-sm-3">Job Title:</b> <%= @client.job_title %></p>
+
     <%= link_to 'Edit', edit_client_path(@client), class: 'btn btn-warning btn-sm' %>
-    <%= link_to 'Back', clients_path, class: 'btn btn-secondary btn-sm' %>
+    <%= link_to 'Clients', clients_path, class: 'btn btn-secondary btn-sm' %>
+    <%= link_to 'Create Scholarship', new_scholarship_path, class: 'btn btn-warning btn-sm' %>
 
     <% if @client.scholarships.any? %>
       <dt class="col-sm-3"><h2>Payment Schedule</h2></dt>

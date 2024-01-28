@@ -4,13 +4,17 @@
   <h1 class="page-title">Provider Details</h1>
 
   <dl class="row mt-4">
-    <dt class="col-sm-3">Provider Name: <%= @provider.name %></p>
-    <dt class="col-sm-3">Internal ID: <%= @provider.id %></p>
+    <b><dt class="col-sm-3">Provider Name:</b> <%= @provider.name %></p>
+    <b><dt class="col-sm-3">Internal ID:</b> <%= @provider.id %></p>
+    <b><dt class="col-sm-3">Phone Number:</b> <%= @provider.phone_number %></p>
+    <b><dt class="col-sm-3">Email:</b> <%= @provider.email %></p>
+    <b><dt class="col-sm-3">Primary Contact:</b> <%= @provider.primary_contact %></p>
+    <b><dt class="col-sm-3">Address:</b> <%= @provider.address_full %></p>
   </dl>
 
   <dl class="row mt-4">
     <%= link_to 'Edit', edit_provider_path(@provider), class: 'btn btn-warning btn-sm' %>
-    <%= link_to 'Back', providers_path, class: 'btn btn-secondary btn-sm' %>
+    <%= link_to 'Providers', providers_path, class: 'btn btn-secondary btn-sm' %>
   </dd>
 </div>
 
