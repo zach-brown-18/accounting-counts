@@ -4,6 +4,8 @@
 <div class="container">
   <h1 class="page-title">Payment Details</h1>
 
+  <%= link_to 'Edit', edit_payment_path(@payment), class: 'btn btn-warning btn-sm' %>
+
   <dl class="row mt-4">
     <b><dt class="col-sm-3">Scholarship:</b> <%= link_to @payment.scholarship.display_name, scholarship_path(@payment.scholarship) %></p>
     <b><dt class="col-sm-3">Client:</b> <%= link_to @payment.scholarship.client.full_name, client_path(@payment.scholarship.client) %></p>
@@ -26,11 +28,6 @@
     <% end %>
 
   </dl>
-  
-  <dl class="row mt-4">
-    <%= link_to 'Edit', edit_payment_path(@payment), class: 'btn btn-warning btn-sm' %>
-    <%= link_to 'Payments', payments_path, class: 'btn btn-secondary btn-sm' %>
-  </dd>
 </div>
 
 <%= render 'shared/footer' %>
