@@ -3,6 +3,9 @@
 <div class="container">
   <h1 class="page-title"><%= @client.full_name %></h1>
 
+  <%= link_to 'Edit', edit_client_path(@client), class: 'btn btn-warning btn-sm' %>
+  <%= link_to 'Create Scholarship', new_scholarship_path, class: 'btn btn-warning btn-sm' %>
+
   <dl class="row mt-4">
     <b><dt class="col-sm-3">Internal ID:</b> <%= @client.id %></p>
     
@@ -32,11 +35,8 @@
     <b><dt class="col-sm-3">Employer:</b> <%= @client.employer %></p>
     <b><dt class="col-sm-3">Job Title:</b> <%= @client.job_title %></p>
 
-    <%= link_to 'Edit', edit_client_path(@client), class: 'btn btn-warning btn-sm' %>
-    <%= link_to 'Clients', clients_path, class: 'btn btn-secondary btn-sm' %>
-    <%= link_to 'Create Scholarship', new_scholarship_path, class: 'btn btn-warning btn-sm' %>
-
     <% if @client.scholarships.any? %>
+      <br>
       <dt class="col-sm-3"><h2>Payment Schedule</h2></dt>
     <% end %>
 

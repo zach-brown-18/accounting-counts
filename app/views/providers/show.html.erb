@@ -2,6 +2,8 @@
 
 <div class="container">
   <h1 class="page-title">Provider Details</h1>
+  
+  <%= link_to 'Edit', edit_provider_path(@provider), class: 'btn btn-warning btn-sm' %>
 
   <dl class="row mt-4">
     <b><dt class="col-sm-3">Provider Name:</b> <%= @provider.name %></p>
@@ -12,10 +14,6 @@
     <b><dt class="col-sm-3">Address:</b> <%= @provider.address_full %></p>
   </dl>
 
-  <dl class="row mt-4">
-    <%= link_to 'Edit', edit_provider_path(@provider), class: 'btn btn-warning btn-sm' %>
-    <%= link_to 'Providers', providers_path, class: 'btn btn-secondary btn-sm' %>
-  </dd>
 </div>
 
 <%= render 'shared/footer' %>

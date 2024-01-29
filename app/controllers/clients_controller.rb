@@ -38,15 +38,24 @@ class ClientsController < ApplicationController
     end
 
     def search
-      @client = Client.find(params[:search_id])
+      first_name = params[:full_name]&.split[0] unless params[:full_name]&.split.count < 1
+      last_name = params[:full_name]&.split[1] unless params[:full_name]&.split.count < 2
+      @client = Client.find_by(first_name: first_name, last_name: last_name)
       if @client
         redirect_to client_path(@client)
       else
-        p 'Client not found'
-        p params[:search_id]
         flash[:alert] = 'Client not found.'
         redirect_to clients_path
       end
+    end
+
+    def autocomplete
+      first_name = params[:full_name]&.split[0] unless params[:full_name]&.split.count < 1
+      last_name = params[:full_name]&.split[1] unless params[:full_name]&.split.count < 2
+
+      clients = Client.where('lower(first_name) LIKE ? AND lower(last_name LIKE ?)', "%#{first_name.downcase}%", "%#{last_name&.downcase}%").limit(5)
+  
+      render json: clients.map { |client| { id: client.id, full_name: client.full_name } }
     end
   
     private
