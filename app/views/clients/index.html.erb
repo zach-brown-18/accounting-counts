@@ -3,12 +3,19 @@
 <div class="container">
   <h1 class="page-title">Clients</h1>
 
+  <!-- Your form -->
   <%= form_tag(search_clients_path, method: :get, class: 'mb-3') do %>
     <div class="input-group">
-      <%= number_field_tag :search_id, params[:search_id], class: 'form-control', placeholder: 'Enter client ID' %>
+      <%= text_field_tag :full_name, params[:full_name], class: 'form-control', id: 'client_full_name', placeholder: 'Enter client full name' %>
       <button type="submit" class="btn btn-primary">Search</button>
     </div>
   <% end %>
+
+  <div class="dropdown" id="suggestions-container">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <!-- Suggestions will be added here dynamically -->
+    </div>
+  </div>
 
   <%= link_to 'New Client', new_client_path, class: 'btn btn-primary btn-sm' %>
 
@@ -36,5 +43,56 @@
       <% end %>
     </tbody>
   </table>
+</div>
+
+<!-- JavaScript Autocomplete -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const fullNameInput = document.getElementById('client_full_name');
+    const suggestionsContainer = document.getElementById('suggestions-container');
+
+    fullNameInput.addEventListener('input', function () {
+      const fullName = fullNameInput.value.trim();
+
+      // Clear previous suggestions
+      suggestionsContainer.querySelector('.dropdown-menu').innerHTML = '';
+
+      // Make an AJAX request to fetch suggestions
+      if (fullName.length > 0) {
+        fetch(`/clients/autocomplete?full_name=${encodeURIComponent(fullName)}`)
+          .then(response => response.json())
+          .then(data => {
+            const dropdownMenu = suggestionsContainer.querySelector('.dropdown-menu');
+
+            data.forEach(suggestion => {
+              const link = document.createElement('a');
+              link.href = `/clients/${suggestion.id}`;
+              link.classList.add('dropdown-item');
+              link.textContent = suggestion.full_name + ", ";
+              link.addEventListener('click', function (event) {
+                event.preventDefault();
+                fullNameInput.value = suggestion.full_name;
+                suggestionsContainer.querySelector('.dropdown-menu').innerHTML = ''; // Clear suggestions
+              });
+              dropdownMenu.appendChild(link);
+            });
+
+            // Show the dropdown
+            suggestionsContainer.classList.add('show');
+          });
+      } else {
+        // Hide the dropdown if the input is empty
+        suggestionsContainer.classList.remove('show');
+      }
+    });
+
+    // Close the dropdown if clicked outside
+    document.addEventListener('click', function (event) {
+      if (!suggestionsContainer.contains(event.target)) {
+        suggestionsContainer.classList.remove('show');
+      }
+    });
+  });
+</script>
 
 <%= render 'shared/footer' %>

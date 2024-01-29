@@ -2,13 +2,13 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :users
   resources :providers
-  resources :clients
   resources :payments
   resources :scholarships
 
   resources :clients do
     collection do
       get 'search'
+      get 'autocomplete'
     end
   end
 
